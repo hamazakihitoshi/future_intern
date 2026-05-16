@@ -5,31 +5,39 @@ import { Card, CardContent } from "@/components/ui/card"
 
 const menuCategories = [
   {
-    genre: "主菜",
+    genre: "軽食",
     items: [
       {
-        id: "main-01",
-        name: "照り焼きチキン定食",
-        description: "香ばしい照り焼きと白ごはんの定番セット。",
-        price: 850,
+        id: "cafe-01",
+        name: "ベリーとクリームのワッフル",
+        description: "ふわふわのワッフルにベリーとクリームをたっぷり添えて。",
+        price: 780,
         image:
-          "https://images.unsplash.com/photo-1543353071-087092ec393b?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=60",
       },
       {
-        id: "main-02",
-        name: "和風ハンバーグ",
-        description: "大根おろしソースがのった食べ応えのある一品。",
+        id: "cafe-02",
+        name: "アボカドとサーモンのオープンサンド",
+        description: "ヘルシーなアボカドとサーモンのバランスが良い一皿。",
         price: 920,
         image:
-          "https://images.unsplash.com/photo-1604908177529-5b7126415d3b?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=500&q=60",
       },
       {
-        id: "main-03",
-        name: "海老フライプレート",
-        description: "サクサクの海老フライとタルタルソース。",
-        price: 980,
+        id: "cafe-03",
+        name: "きのこクリームのクロックムッシュ",
+        description: "とろけるチーズとクリームソースが香るフレンチトースト。",
+        price: 860,
         image:
-          "https://images.unsplash.com/photo-1604908813544-47e5bfd94b63?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1530541930197-ff4cea2f033e?auto=format&fit=crop&w=500&q=60",
+      },
+      {
+        id: "cafe-04",
+        name: "季節野菜のキッシュプレート",
+        description: "彩り野菜を使ったやさしい味わいのキッシュ。",
+        price: 940,
+        image:
+          "https://images.unsplash.com/photo-1529692236671-f1b1c0b3b542?auto=format&fit=crop&w=500&q=60",
       },
     ],
   },
@@ -37,20 +45,28 @@ const menuCategories = [
     genre: "飲み物",
     items: [
       {
-        id: "drink-01",
-        name: "抹茶ラテ",
-        description: "ほんのり甘く、ほっとする味わい。",
-        price: 420,
+        id: "cafe-05",
+        name: "カフェラテ",
+        description: "ミルクのやさしさが広がる定番の一杯。",
+        price: 450,
+        image:
+          "https://images.unsplash.com/photo-1514432324607-a09d9a0e7e86?auto=format&fit=crop&w=500&q=60",
+      },
+      {
+        id: "cafe-06",
+        name: "ほうじ茶ラテ",
+        description: "香ばしいほうじ茶の風味とミルクの相性が良いドリンク。",
+        price: 470,
         image:
           "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=60",
       },
       {
-        id: "drink-02",
-        name: "アイスコーヒー",
-        description: "すっきり冷たい、のどごしの良い一杯。",
-        price: 380,
+        id: "cafe-07",
+        name: "フルーツティー",
+        description: "さわやかなフルーツと紅茶の香りが楽しめます。",
+        price: 520,
         image:
-          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=500&q=60",
       },
     ],
   },
@@ -58,28 +74,28 @@ const menuCategories = [
     genre: "デザート",
     items: [
       {
-        id: "dessert-01",
-        name: "抹茶プリン",
-        description: "なめらかな食感とほろ苦さが楽しめるデザート。",
-        price: 520,
+        id: "cafe-08",
+        name: "チーズケーキプレート",
+        description: "しっとり濃厚なチーズケーキにベリーソースを添えて。",
+        price: 680,
         image:
-          "https://images.unsplash.com/photo-1516222338252-7be1e7bed350?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1547516508-2b21dc6d6e73?auto=format&fit=crop&w=500&q=60",
       },
       {
-        id: "dessert-02",
-        name: "黒蜜きなこ餅",
-        description: "和風の甘さを楽しめるやさしい一品。",
-        price: 480,
+        id: "cafe-09",
+        name: "季節のパフェ",
+        description: "旬のフルーツがのった贅沢なパフェ。",
+        price: 720,
+        image:
+          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=60",
+      },
+      {
+        id: "cafe-10",
+        name: "キャラメルバナナトースト",
+        description: "バナナとキャラメルのやさしい甘さが広がるトースト。",
+        price: 620,
         image:
           "https://images.unsplash.com/photo-1505253213608-14b6ffd1f61c?auto=format&fit=crop&w=500&q=60",
-      },
-      {
-        id: "dessert-03",
-        name: "季節のフルーツ盛り合わせ",
-        description: "彩りもきれいなさっぱりデザート。",
-        price: 600,
-        image:
-          "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=500&q=60",
       },
     ],
   },
@@ -111,7 +127,6 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-slate-950">メニュー一覧</p>
-                <p className="mt-1 text-sm text-slate-500">ジャンル別に見やすく整理したカード表示です。</p>
               </div>
             </div>
 
