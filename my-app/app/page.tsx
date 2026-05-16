@@ -26,6 +26,9 @@ export default function Home() {
   const [splitCount, setSplitCount] = useState(1)
   const [errorMessage, setErrorMessage] = useState("")
   const [isOrderOpen, setIsOrderOpen] = useState(false)
+  const [selectedAllergens, setSelectedAllergens] = useState<string[]>([])
+  const [dbMenuItems, setDbMenuItems] = useState<MenuItem[]>([])
+  const [dbError, setDbError] = useState("")
 
   useEffect(() => {
     const savedOrder = window.localStorage.getItem("osaki-order")
@@ -52,7 +55,41 @@ export default function Home() {
     window.localStorage.setItem("osaki-split", String(splitCount))
   }, [splitCount])
 
+  useEffect(() => {
+    const loadDbMenu = async () => {
+      try {
+        const res = await fetch("/api/menu", { cache: "no-store" })
+        if (!res.ok) {
+          throw new Error(`DB取得に失敗しました (${res.status})`)
+        }
+        const data: MenuItem[] = await res.json()
+        setDbMenuItems(data)
+      } catch (error) {
+        console.error(error)
+        setDbError("データベースからメニューを読み込めませんでした。環境変数と接続先を確認してください。")
+      }
+    }
+
+    loadDbMenu()
+  }, [])
+
   const activeCategory = menuCategories.find((category) => category.genre === activeGenre) ?? menuCategories[0]
+  const allAllergens = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          menuCategories.flatMap((category) => category.items.flatMap((item) => item.allergens ?? []))
+        )
+      ),
+    []
+  )
+  const filteredCategoryItems = useMemo(
+    () =>
+      activeCategory.items.filter((item) =>
+        selectedAllergens.every((allergen) => !(item.allergens ?? []).includes(allergen))
+      ),
+    [activeCategory.items, selectedAllergens]
+  )
   const totalPrice = useMemo(() => calculateTotal(orderItems), [orderItems])
   const itemCount = useMemo(() => orderItems.reduce((sum, order) => sum + order.quantity, 0), [orderItems])
   const perPersonPrice = useMemo(() => calculateSplit(totalPrice, splitCount), [totalPrice, splitCount])
@@ -115,13 +152,11 @@ export default function Home() {
                     <p className="mt-1 text-sm text-slate-200">和食カフェ</p>
                   </div>
                 </div>
-                <div className="space-y-2 text-center">
-                </div>
               </div>
             </div>
           </div>
           <div className="rounded-[2rem] bg-white p-4 shadow-sm ring-1 ring-slate-200">
-            <div className="flex items-center justify-between gap-3 px-2 pb-2">
+            <div className="flex flex-col gap-3 px-2 pb-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm font-semibold text-slate-900">カテゴリーから選ぶ</p>
               <Button
                 variant="outline"
@@ -132,6 +167,38 @@ export default function Home() {
                 注文リストを見る
               </Button>
             </div>
+            <div className="flex flex-wrap gap-2 px-2">
+              {allAllergens.length > 0 ? (
+                allAllergens.map((allergen) => {
+                  const isSelected = selectedAllergens.includes(allergen)
+                  return (
+                    <button
+                      key={allergen}
+                      type="button"
+                      onClick={() =>
+                        setSelectedAllergens((current) =>
+                          current.includes(allergen)
+                            ? current.filter((value) => value !== allergen)
+                            : [...current, allergen]
+                        )
+                      }
+                      className={`rounded-full border px-3 py-2 text-sm transition ${
+                        isSelected
+                          ? "border-emerald-600 bg-emerald-600 text-white"
+                          : "border-slate-200 bg-slate-100 text-slate-700 hover:border-emerald-500"
+                      }`}
+                    >
+                      {allergen}
+                    </button>
+                  )
+                })
+              ) : (
+                <p className="text-sm text-slate-500">アレルゲン情報はありません。</p>
+              )}
+            </div>
+            {selectedAllergens.length > 0 ? (
+              <div className="px-2 pt-2 text-sm text-slate-600">除外中: {selectedAllergens.join("、")}</div>
+            ) : null}
             <div className="grid gap-3">
               {menuCategories.map((category) => (
                 <button
@@ -160,16 +227,47 @@ export default function Home() {
             </div>
           </div>
         </header>
+        <section className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-base font-semibold text-slate-900">DB サンプルメニュー</p>
+              <p className="mt-1 text-sm text-slate-500">Neon PostgreSQL から読み込んだデータを表示しています。</p>
+            </div>
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+              {dbMenuItems.length} 件
+            </span>
+          </div>
+          {dbError ? (
+            <div className="mt-4 rounded-[1.5rem] bg-rose-50 p-4 text-sm text-rose-700 ring-1 ring-rose-200">
+              {dbError}
+            </div>
+          ) : null}
+          <div className="mt-4 space-y-3">
+            {dbMenuItems.length === 0 && !dbError ? (
+              <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+                DB からのメニューを読み込み中です。
+              </div>
+            ) : null}
+            {dbMenuItems.map((item) => (
+              <div key={item.id} className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-semibold text-slate-950">{item.name}</p>
+                    <p className="text-sm text-slate-600">{item.description}</p>
+                  </div>
+                  <p className="font-semibold text-slate-950">¥{item.price}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
         <section className="space-y-4">
           <div className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-base font-semibold text-slate-900">{activeCategory.genre} メニュー</p>
-                <p className="mt-1 text-sm text-slate-500">{activeCategory.items.length} 件のおすすめ</p>
+                <p className="mt-1 text-sm text-slate-500">{filteredCategoryItems.length} 件が対象となっています</p>
               </div>
-              <button className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
-                アレルギー物質で絞り込む＋
-              </button>
             </div>
             <div key={activeCategory.genre} className="space-y-4 mt-4">
               <div className="flex items-center justify-between gap-3">
@@ -179,46 +277,52 @@ export default function Home() {
                 </span>
               </div>
               <div className="space-y-3">
-                {activeCategory.items.map((item) => (
-                  <Card
-                    key={item.id}
-                    className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-xl hover:shadow-slate-200/70"
-                  >
-                    <div className="grid grid-cols-[140px_1fr] gap-2 p-2 sm:grid-cols-[160px_1fr]">
-                      <div className="aspect-[4/3] min-w-0 overflow-hidden rounded-[1.5rem] bg-slate-200">
-                        <img
-                          src={item.imageUrl}
-                          alt={item.name}
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                      <CardContent className="flex flex-1 flex-col justify-between gap-3 p-0">
-                        <div className="space-y-1">
-                          <p className="text-base font-semibold text-slate-950">{item.name}</p>
-                          <p className="text-sm leading-5 text-slate-600">{item.description}</p>
+                {filteredCategoryItems.length === 0 ? (
+                  <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+                    選択したアレルギー物質を含まないメニューはありません。
+                  </div>
+                ) : (
+                  filteredCategoryItems.map((item) => (
+                    <Card
+                      key={item.id}
+                      className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-xl hover:shadow-slate-200/70"
+                    >
+                      <div className="grid grid-cols-[140px_1fr] gap-2 p-2 sm:grid-cols-[160px_1fr]">
+                        <div className="aspect-[4/3] min-w-0 overflow-hidden rounded-[1.5rem] bg-slate-200">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.name}
+                            className="h-full w-full object-cover"
+                            loading="lazy"
+                          />
                         </div>
-                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                          <div className="flex items-center gap-2">
-                            <p className="text-base font-semibold text-slate-950">¥{item.price}</p>
-                            <Button
-                              className={`h-10 w-full rounded-2xl text-sm font-semibold transition sm:w-auto sm:px-4 ${
-                                item.isSoldOut
-                                  ? "cursor-not-allowed bg-slate-300 text-slate-600 hover:bg-slate-300"
-                                  : "bg-emerald-600 text-white shadow-sm shadow-emerald-900/20 hover:bg-emerald-700"
-                              }`}
-                              type="button"
-                              onClick={() => addToOrder(item)}
-                              disabled={item.isSoldOut}
-                            >
-                              {item.isSoldOut ? "品切れ" : "追加する"}
-                            </Button>
+                        <CardContent className="flex flex-1 flex-col justify-between gap-3 p-0">
+                          <div className="space-y-1">
+                            <p className="text-base font-semibold text-slate-950">{item.name}</p>
+                            <p className="text-sm leading-5 text-slate-600">{item.description}</p>
                           </div>
-                        </div>
-                      </CardContent>
-                    </div>
-                  </Card>
-                ))}
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex items-center gap-2">
+                              <p className="text-base font-semibold text-slate-950">¥{item.price}</p>
+                              <Button
+                                className={`h-10 w-full rounded-2xl text-sm font-semibold transition sm:w-auto sm:px-4 ${
+                                  item.isSoldOut
+                                    ? "cursor-not-allowed bg-slate-300 text-slate-600 hover:bg-slate-300"
+                                    : "bg-emerald-600 text-white shadow-sm shadow-emerald-900/20 hover:bg-emerald-700"
+                                }`}
+                                type="button"
+                                onClick={() => addToOrder(item)}
+                                disabled={item.isSoldOut}
+                              >
+                                {item.isSoldOut ? "品切れ" : "追加する"}
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  ))
+                )}
               </div>
             </div>
           </div>
