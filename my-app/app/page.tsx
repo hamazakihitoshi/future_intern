@@ -1,4 +1,9 @@
+"use client"
+
 import Image from "next/image";
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 
 export default function Home() {
   return (
@@ -33,6 +38,16 @@ export default function Home() {
             </a>{" "}
             center.
           </p>
+          <Button type="button" onClick={() => alert("Button clicked!")}>Click me</Button>
+          <Card className="w-full max-w-md">
+            <CardContent>
+              <h2 className="text-xl font-semibold text-black dark:text-white">Card Example</h2>
+              <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                This is a reusable card component. Use it to group related content and actions.
+              </p>
+              <Button className="mt-4" type="button">Action</Button>
+            </CardContent>
+          </Card>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <a
