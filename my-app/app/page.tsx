@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { menuCategories, type MenuItem } from "@/lib/menu-data"
@@ -26,6 +25,7 @@ export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([])
   const [splitCount, setSplitCount] = useState(1)
   const [errorMessage, setErrorMessage] = useState("")
+  const [isOrderOpen, setIsOrderOpen] = useState(false)
 
   useEffect(() => {
     const savedOrder = window.localStorage.getItem("osaki-order")
@@ -78,6 +78,15 @@ export default function Home() {
     })
   }
 
+  const removeFromOrder = (itemId: string) => {
+    setOrderItems((current) => current.filter((order) => order.item.id !== itemId))
+  }
+
+  const clearOrder = () => {
+    setOrderItems([])
+    setErrorMessage("")
+  }
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.14),_rgba(241,245,249,0.95),_transparent_90%)] text-slate-950">
       <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5 pb-56">
@@ -111,8 +120,13 @@ export default function Home() {
           <div className="rounded-[2rem] bg-white p-4 shadow-sm ring-1 ring-slate-200">
             <div className="flex items-center justify-between gap-3 px-2 pb-2">
               <p className="text-sm font-semibold text-slate-900">カテゴリーから選ぶ</p>
-              <Button asChild variant="outline" size="sm" className="rounded-full px-4 py-2 text-sm">
-                <Link href="/order">注文リストを見る</Link>
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-full px-4 py-2 text-sm"
+                onClick={() => setIsOrderOpen((open) => !open)}
+              >
+                注文リストを見る
               </Button>
             </div>
             <div className="grid gap-3">
@@ -206,66 +220,95 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="fixed inset-x-0 bottom-0 z-20 mx-auto w-full max-w-md px-4 pb-4">
-          <div className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-base font-semibold text-slate-900">注文リスト</p>
-                <p className="text-sm text-slate-600">合計 {itemCount} 個</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <label className="text-sm text-slate-600">人数</label>
-                <input
-                  type="number"
-                  min={1}
-                  value={splitCount}
-                  onChange={(event) => setSplitCount(Number(event.target.value) || 1)}
-                  className="w-20 rounded-2xl border border-slate-200 px-3 py-2 text-sm"
-                />
-              </div>
-            </div>
-            <div className="mt-4 flex justify-end">
-              <Button asChild variant="outline" size="sm" className="rounded-full px-4 py-2">
-                <Link href="/order">別画面で注文リスト</Link>
-              </Button>
-            </div>
-
-            {errorMessage ? (
-              <div className="mt-4 rounded-2xl bg-rose-50 p-3 text-sm text-rose-700 ring-1 ring-rose-200">
-                {errorMessage}
-              </div>
-            ) : null}
-
-            <div className="mt-5 space-y-3">
-              {orderItems.length === 0 ? (
-                <p className="text-sm leading-6 text-slate-600">追加されたメニューはまだありません。</p>
-              ) : (
-                <div className="space-y-3">
-                  {orderItems.map((order) => (
-                    <div key={order.item.id} className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <p className="font-semibold text-slate-950">{order.item.name}</p>
-                          <p className="text-sm text-slate-600">{order.quantity} 個</p>
-                        </div>
-                        <p className="text-sm font-semibold text-slate-950">¥{order.item.price * order.quantity}</p>
-                      </div>
-                    </div>
-                  ))}
+        {isOrderOpen ? (
+          <section className="fixed inset-x-0 bottom-20 z-30 mx-auto w-full max-w-md px-4 pb-4">
+            <div className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-base font-semibold text-slate-900">注文リスト</p>
+                  <p className="text-sm text-slate-600">合計 {itemCount} 個</p>
                 </div>
-              )}
-            </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={clearOrder}
+                    className="rounded-full bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
+                  >
+                    全キャンセル
+                  </button>
+                  <label className="text-sm text-slate-600">人数</label>
+                  <input
+                    type="number"
+                    min={1}
+                    value={splitCount}
+                    onChange={(event) => setSplitCount(Number(event.target.value) || 1)}
+                    className="w-20 rounded-2xl border border-slate-200 px-3 py-2 text-sm"
+                  />
+                </div>
+              </div>
 
-            <div className="mt-5 rounded-[1.5rem] bg-slate-50 p-4 text-sm text-slate-700">
-              <div className="flex items-center justify-between">
-                <span>合計金額</span>
-                <span className="font-semibold text-slate-950">¥{totalPrice}</span>
+              {errorMessage ? (
+                <div className="mt-4 rounded-2xl bg-rose-50 p-3 text-sm text-rose-700 ring-1 ring-rose-200">
+                  {errorMessage}
+                </div>
+              ) : null}
+
+              <div className="mt-5 space-y-3">
+                {orderItems.length === 0 ? (
+                  <p className="text-sm leading-6 text-slate-600">追加されたメニューはまだありません。</p>
+                ) : (
+                  <div className="space-y-3">
+                    {orderItems.map((order) => (
+                      <div key={order.item.id} className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                          <div>
+                            <p className="font-semibold text-slate-950">{order.item.name}</p>
+                            <p className="text-sm text-slate-600">{order.quantity} 個</p>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <p className="text-sm font-semibold text-slate-950">¥{order.item.price * order.quantity}</p>
+                            <button
+                              type="button"
+                              onClick={() => removeFromOrder(order.item.id)}
+                              className="rounded-full bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
+                            >
+                              キャンセル
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="mt-3 flex items-center justify-between">
-                <span>1人あたり</span>
-                <span className="font-semibold text-slate-950">¥{perPersonPrice}</span>
+
+              <div className="mt-5 rounded-[1.5rem] bg-slate-50 p-4 text-sm text-slate-700">
+                <div className="flex items-center justify-between">
+                  <span>合計金額</span>
+                  <span className="font-semibold text-slate-950">¥{totalPrice}</span>
+                </div>
+                <div className="mt-3 flex items-center justify-between">
+                  <span>1人あたり</span>
+                  <span className="font-semibold text-slate-950">¥{perPersonPrice}</span>
+                </div>
               </div>
             </div>
+          </section>
+        ) : null}
+
+        <section className="fixed inset-x-0 bottom-0 z-40 mx-auto w-full max-w-md px-4 pb-4">
+          <div className="rounded-[2rem] bg-white p-4 shadow-md ring-1 ring-slate-200">
+            <button
+              type="button"
+              onClick={() => setIsOrderOpen((open) => !open)}
+              className="flex w-full items-center justify-between gap-3 rounded-[1.5rem] bg-emerald-600 px-5 py-4 text-left text-white shadow-lg shadow-emerald-700/20 transition hover:bg-emerald-700"
+            >
+              <div>
+                <p className="text-base font-semibold">注文リスト</p>
+                <p className="text-sm text-white/80">{itemCount} 個 ・ ¥{totalPrice}</p>
+              </div>
+              <span className="text-sm font-semibold">{isOrderOpen ? "閉じる" : "開く"}</span>
+            </button>
           </div>
         </section>
       </main>
