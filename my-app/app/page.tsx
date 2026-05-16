@@ -134,13 +134,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.16),_rgba(236,253,245,0.85),_transparent_80%)] text-slate-950">
       <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5">
-        <header className="rounded-[2rem] border border-slate-200 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),_rgba(6,95,70,0.06),_transparent_70%)] p-5 shadow-lg shadow-slate-200/40">
-          <div className="flex items-center justify-center">
-            <div className="rounded-[2rem] bg-emerald-600/10 px-4 py-3 shadow-inner shadow-emerald-200/60">
-              <h1 className="mt-0 text-3xl font-semibold tracking-tight text-emerald-950">
-                OSAKI 亭
-              </h1>
-            </div>
+        <header className="rounded-[2rem] border border-emerald-600/30 bg-emerald-50/80 p-5 shadow-lg shadow-emerald-200/30">
+          <div className="text-center">
+            <h1 className="mx-auto inline-flex rounded-[2rem] border border-emerald-600 bg-emerald-600 px-5 py-3 text-3xl font-semibold tracking-tight text-white">
+              OSAKI 亭
+            </h1>
           </div>
         </header>
         <section className="space-y-4">
@@ -168,8 +166,8 @@ export default function Home() {
                         key={item.id}
                         className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-xl hover:shadow-slate-200/70"
                       >
-                        <div className="grid grid-cols-[120px_1fr] gap-4 p-4 sm:grid-cols-[150px_1fr]">
-                          <div className="aspect-[4/3] min-w-0 overflow-hidden rounded-[1.5rem] bg-slate-200">
+                        <div className="grid grid-cols-[100px_1fr] gap-3 p-3 sm:grid-cols-[130px_1fr]">
+                          <div className="aspect-[4/3] min-w-0 overflow-hidden rounded-[1.25rem] bg-slate-200">
                             <img
                               src={item.image}
                               alt={item.name}
