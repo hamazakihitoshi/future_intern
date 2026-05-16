@@ -132,9 +132,9 @@ const menuCategories = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-950">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.16),_rgba(236,253,245,0.85),_transparent_80%)] text-slate-950">
       <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5">
-        <header className="rounded-[2rem] border border-slate-200 bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.08),_transparent_55%)] p-5 shadow-lg shadow-slate-200/40">
+        <header className="rounded-[2rem] border border-slate-200 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),_rgba(6,95,70,0.06),_transparent_70%)] p-5 shadow-lg shadow-slate-200/40">
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
@@ -144,13 +144,7 @@ export default function Home() {
                 OSAKI 亭
               </h1>
             </div>
-            <div className="rounded-3xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-emerald-900/20">
-              グリーンメニュー
-            </div>
           </div>
-          <p className="mt-4 text-sm leading-6 text-slate-600">
-            こだわりのメニューからお好きな一品を追加してください。スマホでも押しやすいデザインです。
-          </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700">
               今日のおすすめ
