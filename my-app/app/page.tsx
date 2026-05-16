@@ -136,8 +136,8 @@ export default function Home() {
       <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5">
         <header className="rounded-[2rem] border border-slate-200 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),_rgba(6,95,70,0.06),_transparent_70%)] p-5 shadow-lg shadow-slate-200/40">
           <div className="flex items-center justify-between gap-4">
-            <div>
-              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+            <div className="rounded-[2rem] bg-emerald-600/10 px-4 py-3 shadow-inner shadow-emerald-200/60">
+              <h1 className="mt-0 text-3xl font-semibold tracking-tight text-emerald-950">
                 OSAKI 亭
               </h1>
             </div>
@@ -212,7 +212,7 @@ export default function Home() {
         </section>
 
         <footer className="rounded-[2rem] bg-white p-4 text-center text-sm text-slate-500 shadow-sm ring-1 ring-slate-200">
-          <p>スマホ幅で読みやすさと押しやすさを意識したレイアウトです。</p>
+          
         </footer>
       </main>
     </div>
