@@ -1,6 +1,7 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { menuCategories, type MenuItem } from "@/lib/menu-data"
@@ -25,6 +26,31 @@ export default function Home() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([])
   const [splitCount, setSplitCount] = useState(1)
   const [errorMessage, setErrorMessage] = useState("")
+
+  useEffect(() => {
+    const savedOrder = window.localStorage.getItem("osaki-order")
+    const savedSplit = window.localStorage.getItem("osaki-split")
+
+    if (savedOrder) {
+      try {
+        setOrderItems(JSON.parse(savedOrder))
+      } catch {
+        setOrderItems([])
+      }
+    }
+    if (savedSplit) {
+      const parsed = Number(savedSplit)
+      setSplitCount(parsed > 0 ? parsed : 1)
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem("osaki-order", JSON.stringify(orderItems))
+  }, [orderItems])
+
+  useEffect(() => {
+    window.localStorage.setItem("osaki-split", String(splitCount))
+  }, [splitCount])
 
   const activeCategory = menuCategories.find((category) => category.genre === activeGenre) ?? menuCategories[0]
   const totalPrice = useMemo(() => calculateTotal(orderItems), [orderItems])
@@ -54,7 +80,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.16),_rgba(236,253,245,0.85),_transparent_80%)] text-slate-950">
-      <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5">
+      <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5 pb-56">
         <header className="space-y-4">
           <div className="overflow-hidden rounded-[2rem] bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-8 shadow-lg shadow-emerald-500/20">
             <div className="mx-auto max-w-xl text-center">
@@ -81,9 +107,14 @@ export default function Home() {
             <div className="flex flex-col gap-4">
               <div className="flex items-center justify-between gap-3">
                 <p className="text-base font-semibold text-slate-900">メニュー一覧</p>
-                <button className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
-                  アレルギー物質で絞り込む＋
-                </button>
+                <div className="flex items-center gap-2">
+                  <Button asChild variant="outline" className="rounded-full px-4 py-2 text-sm font-medium">
+                    <Link href="/order">注文リストを見る</Link>
+                  </Button>
+                  <button className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
+                    アレルギー物質で絞り込む＋
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -158,7 +189,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="space-y-4">
+        <section className="fixed inset-x-0 bottom-0 z-20 mx-auto w-full max-w-md px-4 pb-4">
           <div className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
             <div className="flex items-center justify-between gap-3">
               <div>
@@ -175,6 +206,11 @@ export default function Home() {
                   className="w-20 rounded-2xl border border-slate-200 px-3 py-2 text-sm"
                 />
               </div>
+            </div>
+            <div className="mt-4 flex justify-end">
+              <Button asChild variant="outline" size="sm" className="rounded-full px-4 py-2">
+                <Link href="/order">別画面で注文リスト</Link>
+              </Button>
             </div>
 
             {errorMessage ? (
