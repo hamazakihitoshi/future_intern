@@ -150,19 +150,25 @@ export default function Home() {
         <section className="space-y-4">
           <div className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
             <div className="flex flex-col gap-4">
-              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-900">
-                メニュー
-              </div>
-              <nav className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
-                <span className="text-slate-400">ホーム</span>
-                <span>›</span>
-                <span className="text-slate-600">OSAKI 亭</span>
-                <span>›</span>
-                <span className="font-semibold text-slate-950">{activeGenre}</span>
+              <nav className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-400">ホーム</span>
+                  <span>›</span>
+                  <span className="text-slate-600">OSAKI 亭</span>
+                  <span>›</span>
+                  <span className="font-semibold text-slate-950">{activeGenre}</span>
+                </div>
+                <button className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
+                  アレルギー物質で絞り込む＋
+                </button>
               </nav>
+              <div className="flex items-center gap-3">
+                <span className="h-6 w-1 rounded-full bg-emerald-600" />
+                <p className="text-base font-semibold text-slate-900">メニュー一覧</p>
+              </div>
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {menuCategories.map((category) => (
                 <button
                   key={category.genre}
