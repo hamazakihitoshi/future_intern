@@ -58,7 +58,7 @@ const menuCategories = [
         description: "香ばしいほうじ茶の風味とミルクの相性が良いドリンク。",
         price: 470,
         image:
-          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=500&q=60",
       },
       {
         id: "cafe-07",
@@ -66,7 +66,7 @@ const menuCategories = [
         description: "さわやかなフルーツと紅茶の香りが楽しめます。",
         price: 520,
         image:
-          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=500&q=60",
       },
     ],
   },
@@ -95,7 +95,7 @@ const menuCategories = [
         description: "バナナとキャラメルのやさしい甘さが広がるトースト。",
         price: 620,
         image:
-          "https://images.unsplash.com/photo-1505253213608-14b6ffd1f61c?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1516100882582-96c3a05fe590?auto=format&fit=crop&w=500&q=60",
       },
     ],
   },
