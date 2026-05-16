@@ -135,10 +135,12 @@ export default function Home() {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.16),_rgba(236,253,245,0.85),_transparent_80%)] text-slate-950">
       <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5">
         <header className="rounded-[2rem] border border-emerald-600/30 bg-emerald-50/80 p-5 shadow-lg shadow-emerald-200/30">
-          <div className="text-center">
-            <h1 className="mx-auto inline-flex rounded-[2rem] border border-emerald-600 bg-emerald-600 px-5 py-3 text-3xl font-semibold tracking-tight text-white">
-              OSAKI 亭
-            </h1>
+          <div className="relative flex justify-center">
+            <div className="absolute -left-3 top-4 h-3 w-3 rounded-full bg-emerald-400/80 blur-xl" />
+            <div className="absolute -right-3 bottom-4 h-3 w-3 rounded-full bg-emerald-400/70 blur-xl" />
+            <div className="relative inline-flex items-center rounded-[2.5rem] border border-emerald-600 bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-3 text-white shadow-lg shadow-emerald-500/20">
+              <span className="text-3xl font-semibold tracking-tight">OSAKI 亭</span>
+            </div>
           </div>
         </header>
         <section className="space-y-4">
