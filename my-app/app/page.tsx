@@ -13,7 +13,7 @@ const menuCategories = [
         description: "ふわふわのワッフルにベリーとクリームをたっぷり添えて。",
         price: 780,
         image:
-          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=640&q=80",
       },
       {
         id: "cafe-02",
@@ -21,7 +21,7 @@ const menuCategories = [
         description: "ヘルシーなアボカドとサーモンのバランスが良い一皿。",
         price: 920,
         image:
-          "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=640&q=80",
       },
       {
         id: "cafe-03",
@@ -29,7 +29,7 @@ const menuCategories = [
         description: "とろけるチーズとクリームソースが香るフレンチトースト。",
         price: 860,
         image:
-          "https://images.unsplash.com/photo-1530541930197-ff4cea2f033e?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1530541930197-ff4cea2f033e?auto=format&fit=crop&w=640&q=80",
       },
       {
         id: "cafe-04",
@@ -37,7 +37,36 @@ const menuCategories = [
         description: "彩り野菜を使ったやさしい味わいのキッシュ。",
         price: 940,
         image:
-          "https://images.unsplash.com/photo-1529692236671-f1b1c0b3b542?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1529692236671-f1b1c0b3b542?auto=format&fit=crop&w=640&q=80",
+      },
+    ],
+  },
+  {
+    genre: "サイド",
+    items: [
+      {
+        id: "side-01",
+        name: "シーザーサラダ",
+        description: "シャキシャキ野菜とクリーミーなドレッシング。",
+        price: 520,
+        image:
+          "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=640&q=80",
+      },
+      {
+        id: "side-02",
+        name: "ハーブチキンプレート",
+        description: "香り豊かなハーブチキンを添えたヘルシーな一皿。",
+        price: 980,
+        image:
+          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=640&q=80",
+      },
+      {
+        id: "side-03",
+        name: "フライドポテト",
+        description: "皮付きポテトのカリッとした食感が魅力です。",
+        price: 420,
+        image:
+          "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=640&q=80",
       },
     ],
   },
@@ -50,7 +79,7 @@ const menuCategories = [
         description: "ミルクのやさしさが広がる定番の一杯。",
         price: 450,
         image:
-          "https://images.unsplash.com/photo-1514432324607-a09d9a0e7e86?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1514432324607-a09d9a0e7e86?auto=format&fit=crop&w=640&q=80",
       },
       {
         id: "cafe-06",
@@ -58,7 +87,7 @@ const menuCategories = [
         description: "香ばしいほうじ茶の風味とミルクの相性が良いドリンク。",
         price: 470,
         image:
-          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=640&q=80",
       },
       {
         id: "cafe-07",
@@ -66,7 +95,7 @@ const menuCategories = [
         description: "さわやかなフルーツと紅茶の香りが楽しめます。",
         price: 520,
         image:
-          "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=640&q=80",
       },
     ],
   },
@@ -79,7 +108,7 @@ const menuCategories = [
         description: "しっとり濃厚なチーズケーキにベリーソースを添えて。",
         price: 680,
         image:
-          "https://images.unsplash.com/photo-1547516508-2b21dc6d6e73?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1547516508-2b21dc6d6e73?auto=format&fit=crop&w=640&q=80",
       },
       {
         id: "cafe-09",
@@ -87,7 +116,7 @@ const menuCategories = [
         description: "旬のフルーツがのった贅沢なパフェ。",
         price: 720,
         image:
-          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=640&q=80",
       },
       {
         id: "cafe-10",
@@ -95,7 +124,7 @@ const menuCategories = [
         description: "バナナとキャラメルのやさしい甘さが広がるトースト。",
         price: 620,
         image:
-          "https://images.unsplash.com/photo-1516100882582-96c3a05fe590?auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1516100882582-96c3a05fe590?auto=format&fit=crop&w=640&q=80",
       },
     ],
   },
@@ -115,12 +144,12 @@ export default function Home() {
                 OSAKI 亭
               </h1>
             </div>
-            <div className="rounded-3xl bg-slate-950 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-slate-900/10">
-              カフェメニュー
+            <div className="rounded-3xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-emerald-900/20">
+              グリーンメニュー
             </div>
           </div>
           <p className="mt-4 text-sm leading-6 text-slate-600">
-            こだわりのカフェメニューからお好きな一品を追加してください。スマホでも押しやすいデザインです。
+            こだわりのメニューからお好きな一品を追加してください。スマホでも押しやすいデザインです。
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700">
@@ -157,8 +186,8 @@ export default function Home() {
                         key={item.id}
                         className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-xl hover:shadow-slate-200/70"
                       >
-                        <div className="grid grid-cols-[96px_1fr] gap-4 p-4 sm:grid-cols-[120px_1fr]">
-                          <div className="overflow-hidden rounded-[1.5rem] bg-slate-200">
+                        <div className="grid grid-cols-[120px_1fr] gap-4 p-4 sm:grid-cols-[150px_1fr]">
+                          <div className="aspect-[4/3] min-w-0 overflow-hidden rounded-[1.5rem] bg-slate-200">
                             <img
                               src={item.image}
                               alt={item.name}
@@ -174,8 +203,7 @@ export default function Home() {
                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                               <p className="text-base font-semibold text-slate-950">¥{item.price}</p>
                               <Button
-                                variant="outline"
-                                className="h-11 w-full rounded-2xl border-slate-300 bg-white text-sm font-semibold text-slate-950 transition hover:border-slate-400 sm:w-auto sm:px-5"
+                                className="h-11 w-full rounded-2xl bg-emerald-600 text-white shadow-sm shadow-emerald-900/20 transition hover:bg-emerald-700 sm:w-auto sm:px-5"
                                 type="button"
                               >
                                 追加する
