@@ -137,9 +137,6 @@ export default function Home() {
         <header className="rounded-[2rem] border border-slate-200 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),_rgba(6,95,70,0.06),_transparent_70%)] p-5 shadow-lg shadow-slate-200/40">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-                店舗注文
-              </p>
               <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
                 OSAKI 亭
               </h1>
