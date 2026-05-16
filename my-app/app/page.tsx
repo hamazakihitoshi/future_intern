@@ -79,12 +79,17 @@ export default function Home() {
   }
 
   const removeFromOrder = (itemId: string) => {
-    setOrderItems((current) => current.filter((order) => order.item.id !== itemId))
+    const nextOrder = orderItems.filter((order) => order.item.id !== itemId)
+    setOrderItems(nextOrder)
+    if (nextOrder.length === 0) {
+      setIsOrderOpen(false)
+    }
   }
 
   const clearOrder = () => {
     setOrderItems([])
     setErrorMessage("")
+    setIsOrderOpen(false)
   }
 
   return (
@@ -111,8 +116,6 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="space-y-2 text-center">
-                  <p className="text-lg font-semibold">大崎のおしゃれカフェメニュー</p>
-                  <p className="text-sm leading-6 text-slate-300">本日のおすすめをスマホで簡単に注文できます。</p>
                 </div>
               </div>
             </div>
