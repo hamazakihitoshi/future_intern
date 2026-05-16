@@ -83,7 +83,7 @@ export const menuCategories: MenuCategory[] = [
         price: 420,
         imageUrl:
           "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=640&q=80",
-        isSoldOut: false,
+        isSoldOut: true,
       },
     ],
   },
