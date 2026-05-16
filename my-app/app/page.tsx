@@ -139,10 +139,9 @@ export default function Home() {
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.16),_rgba(236,253,245,0.85),_transparent_80%)] text-slate-950">
       <main className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-4 py-5">
         <header className="space-y-4">
-          <div className="overflow-hidden rounded-[2rem] bg-slate-950 px-5 py-8 shadow-lg shadow-slate-900/20">
+          <div className="overflow-hidden rounded-[2rem] bg-gradient-to-r from-emerald-600 to-emerald-500 px-5 py-8 shadow-lg shadow-emerald-500/20">
             <div className="mx-auto max-w-xl text-center">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">大戸屋ごはん処</p>
-              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-white">OSAKI 亭</h1>
+              <h1 className="text-3xl font-semibold tracking-tight text-white">OSAKI 亭</h1>
             </div>
           </div>
           <div className="rounded-[2rem] bg-white p-5 shadow-sm ring-1 ring-slate-200">
@@ -202,8 +201,8 @@ export default function Home() {
                       key={item.id}
                       className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white transition-shadow duration-200 hover:shadow-xl hover:shadow-slate-200/70"
                     >
-                      <div className="grid grid-cols-[100px_1fr] gap-2 p-2 sm:grid-cols-[130px_1fr]">
-                        <div className="aspect-[4/3] min-w-0 overflow-hidden rounded-[1.25rem] bg-slate-200">
+                      <div className="grid grid-cols-[140px_1fr] gap-2 p-2 sm:grid-cols-[160px_1fr]">
+                        <div className="aspect-[4/3] min-w-0 overflow-hidden rounded-[1.5rem] bg-slate-200">
                           <img
                             src={item.image}
                             alt={item.name}
